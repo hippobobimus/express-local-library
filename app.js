@@ -26,8 +26,11 @@ const app = express();
 app.use(helmet());
 
 // Setup mongoose collection
-const mongoDB =
+const devDB =
   'mongodb+srv://tutorial-user:uHf4BdnH1zwtdm0Q@cluster0.gryfu.mongodb.net/local_library?retryWrites=true&w=majority';
+
+const mongoDB = process.env.MONGODB_URI || devDB;
+
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 
 db.on('error', (error) => debug('MongoDB connection error:' + error));
