@@ -11,10 +11,12 @@
     "serverstart": "DEBUG=express-local-library:\\* yarn devstart"
   },
   "dependencies": {
+    "compression": "^1.7.4",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "express-validator": "^6.14.0",
+    "helmet": "^5.0.2",
     "http-errors": "~1.6.3",
     "luxon": "^2.3.1",
     "mongoose": "^6.2.10",
@@ -46,7 +48,12 @@
     },
     "rules": {
       "no-underscore-dangle": "off",
-      "no-param-reassign": [2, { "props": false }]
+      "no-param-reassign": [
+        2,
+        {
+          "props": false
+        }
+      ]
     }
   },
   "prettier": {

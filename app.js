@@ -3,13 +3,17 @@ import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
+import debugLib from 'debug';
 import mongoose from 'mongoose';
-import {fileURLToPath} from 'url';
+import { fileURLToPath } from 'url';
 
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
 import catalogRouter from './routes/catalog.js';
+import compression from 'compression';
+import helmet from 'helmet';
 
+const debug = debugLib('express-local-library:app');
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -18,12 +22,15 @@ const db = mongoose.connection;
 
 const app = express();
 
+// Security: sets various HTTP headers.
+app.use(helmet());
+
 // Setup mongoose collection
 const mongoDB =
   'mongodb+srv://tutorial-user:uHf4BdnH1zwtdm0Q@cluster0.gryfu.mongodb.net/local_library?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.on('error', (error) => debug('MongoDB connection error:' + error));
 
 // view engine setup
 app.set('views', path.join(dirname, 'views'));
@@ -33,8 +40,11 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(dirname, 'public')));
 
+// Compress all routes
+app.use(compression());
+
+app.use(express.static(path.join(dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/catalog', catalogRouter);
