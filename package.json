@@ -1,0 +1,55 @@
+{
+  "name": "express-local-library",
+  "version": "0.0.0",
+  "engines": {
+    "node": "17.9.0"
+  },
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "devstart": "nodemon ./bin/www",
+    "serverstart": "DEBUG=express-local-library:\\* yarn devstart"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "express-validator": "^6.14.0",
+    "http-errors": "~1.6.3",
+    "luxon": "^2.3.1",
+    "mongoose": "^6.2.10",
+    "morgan": "~1.9.1",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.13.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.4.0",
+    "eslint-plugin-import": "^2.25.4",
+    "nodemon": "^2.0.15",
+    "prettier": "2.5.1"
+  },
+  "type": "module",
+  "packageManager": "yarn@3.2.0",
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "es2021": true
+    },
+    "extends": [
+      "airbnb-base/legacy",
+      "prettier"
+    ],
+    "parserOptions": {
+      "ecmaVersion": "latest",
+      "sourceType": "module"
+    },
+    "rules": {
+      "no-underscore-dangle": "off",
+      "no-param-reassign": [2, { "props": false }]
+    }
+  },
+  "prettier": {
+    "singleQuote": true
+  }
+}
